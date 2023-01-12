@@ -15,6 +15,9 @@ A template for a GoLang backend using Fiber, MongoDB, a Makefile, and more
 
 ### Installing
 
+0. Install extra packages: 
+    ```go install github.com/cosmtrek/air@latest```
+    ```go install github.com/swaggo/swag/cmd/swag@latest```
 1. Clone the repo
 2. Create your own .env file
 3. ```make dev```
