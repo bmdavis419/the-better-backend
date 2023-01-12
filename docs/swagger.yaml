@@ -1,0 +1,177 @@
+basePath: /
+definitions:
+  handlers.CreateTodoDTO:
+    properties:
+      completed:
+        type: boolean
+      date:
+        type: string
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  handlers.CreateTodoResDTO:
+    properties:
+      inserted_id:
+        type: string
+    type: object
+  handlers.DeleteTodoResDTO:
+    properties:
+      deleted_count:
+        type: integer
+    type: object
+  handlers.UpdateTodoDTO:
+    properties:
+      completed:
+        type: boolean
+      date:
+        type: string
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  handlers.UpdateTodoResDTO:
+    properties:
+      updated_count:
+        type: integer
+    type: object
+  models.Todo:
+    properties:
+      completed:
+        type: boolean
+      date:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: Ben Davis
+  description: An example template of a Golang backend API using Fiber and MongoDB
+  license:
+    name: MIT
+  title: The Better Backend Template
+  version: "0.1"
+paths:
+  /health:
+    get:
+      consumes:
+      - '*/*'
+      description: get the status of server.
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+      summary: Show the status of server.
+      tags:
+      - health
+  /todos:
+    get:
+      consumes:
+      - '*/*'
+      description: fetch every todo available.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Todo'
+            type: array
+      summary: Get all todos.
+      tags:
+      - todos
+    post:
+      consumes:
+      - application/json
+      description: create a single todo.
+      parameters:
+      - description: Todo to create
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CreateTodoDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.CreateTodoResDTO'
+      summary: Create a todo.
+      tags:
+      - todos
+  /todos/:id:
+    delete:
+      description: delete a single todo by id.
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.DeleteTodoResDTO'
+      summary: Delete a single todo.
+      tags:
+      - todos
+    get:
+      description: fetch a single todo.
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Todo'
+      summary: Get a single todo.
+      tags:
+      - todos
+    put:
+      consumes:
+      - application/json
+      description: update a single todo.
+      parameters:
+      - description: Todo update data
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.UpdateTodoDTO'
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.UpdateTodoResDTO'
+      summary: Update a todo.
+      tags:
+      - todos
+swagger: "2.0"

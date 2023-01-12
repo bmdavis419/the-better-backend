@@ -6,10 +6,7 @@ import (
 )
 
 func SetupRoutes(app *fiber.App) {
-	// setup health check
-	app.Get("/health", func(c *fiber.Ctx) error {
-		return c.SendString("OK")
-	})
+	app.Get("/health", handlers.HandleHealthCheck)
 
 	// setup the todos group
 	todos := app.Group("/todos")
