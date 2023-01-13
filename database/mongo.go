@@ -34,6 +34,12 @@ func StartMongoDB() error {
 	if err != nil {
 		panic(err)
 	}
+	
+	err = mongoClient.Ping(context.Background(), nil)
+	if err != nil {
+		return errors.New("can't verify a connection")
+	}
+	
 	return nil
 }
 
